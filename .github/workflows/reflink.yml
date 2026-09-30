@@ -1,0 +1,15 @@
+name: Check reflink support
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  reflink:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create and reflink a file
+        run: |
+          printf 'reflink check\n' > source.txt
+          cp --reflink=always source.txt copy.txt
+          cmp source.txt copy.txt
